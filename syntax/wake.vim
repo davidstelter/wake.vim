@@ -19,15 +19,15 @@ elseif exists("b:current_syntax")
 endif
 
 setlocal iskeyword+=:
-syn keyword	basickeyword	with public new return if else while foreach in import provides needs then nothing var exists true false foreach in from continue
-syn region	classdecl	start="every" end="is:" contains=inheritancekeyword,interfacekeyword,ancestrysymbols,withinregionkeyword transparent keepend
+syn keyword	basickeyword	with public private new return if else while for in import provides needs then nothing var exists true false foreach in from continue module do at break
+syn region	classdecl	start="every" end=":" contains=inheritancekeyword,interfacekeyword,ancestrysymbols,withinregionkeyword transparent keepend
 syn match	fulltextident	"\~\[[^\]]\+\]\~"
 syn match	hashcomment	"#\<[a-zA-Z]\+\>\?"
 syn region	blockcomment	start="#>" end="##"
 syn match	blockcomment	"##"
 syn keyword	inheritancekeyword	a an contained
 syn keyword	interfacekeyword	capable
-syn keyword	mytype	Num Bool Text Char
+syn keyword	mytype	Num Bool Text Char Int
 syn match	alias	"\<[a-z][a-zA-Z0-9]*\>"
 syn match	withinregionkeyword	"\(every\|is:\)"
 syn match	shadow	"\$"
@@ -35,12 +35,13 @@ syn match	returntype	"\(\<[a-zA-Z][a-zA-Z0-9]*\>\s\+\)\?--"
 syn match	functioncall	"\<[a-zA-Z][a-zA-Z0-0]+\>(" contained
 syn match	methodstart	"\<[a-zA-Z][a-zA-Z0-9]*\>("
 syn match	methodseg	"\<)[a-zA-Z][a-zA-Z0-9]*\>("
-syn match	symbols	"\((\|)\|;\||\|=\|+\|{\|}\|,\|\.\|<\|>\|\-\|\*\|\/\|:\)"
+syn match	symbols	"\((\|)\|;\||\|=\|+\|{\|}\|,\|\.\|<\|>\|\-\|\*\|\/\|:\|^\|%\|&\|\~\)"
 syn match	ancestrysymbols "\((\|)\|,\)" contained
 syn match	typesymbols "\(\[\|\]\)"
 syn match	currysymbols "???"
-syn region	mystring start=/"/ skip=/\\\\\|\\"/ end=/"/
-syn region	mystring2 start=/'/ skip=/\\\\\|\\'/ end=/'/
+syn match	mychar "\\\(.\|[0-9]{1,3}\)"
+syn region	mystring start=/"/ skip=/\\\\\|\\"/ end=/"s\?/
+syn region	mystring2 start=/'/ skip=/\\\\\|\\'/ end=/'s\?/
 syn match	specialty	":[a-zA-Z0-9]\+"
 syn region	comment	start="\/\/" end="$"
 syn match	comment	"`[^`]*`"
@@ -69,6 +70,7 @@ hi link methodseg		Special
 hi link methodstart		Special
 hi link functioncall		String
 hi link mystring2		String
+hi link mychar			String
 hi link mystring		String
 hi link specialty		Special
 
